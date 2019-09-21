@@ -60,25 +60,61 @@ public class Utils {
 
         List<String> bmpHexList = binaryListToHexStringList(list);
         String commandHexString = "1D763000";
-        String widthHexString = Integer
-                .toHexString(bmpWidth % 8 == 0 ? bmpWidth / 8
-                        : (bmpWidth / 8 + 1));
-        if (widthHexString.length() > 10) {
-            Log.e("decodeBitmap error", " width is too large");
-            return null;
-        } else if (widthHexString.length() == 1) {
-            widthHexString = "0" + widthHexString;
-        }
-        widthHexString = widthHexString + "00";
 
-        String heightHexString = Integer.toHexString(bmpHeight);
-        if (heightHexString.length() > 10) {
-            Log.e("decodeBitmap error", " height is too large");
-            return null;
-        } else if (heightHexString.length() == 1) {
-            heightHexString = "0" + heightHexString;
+
+//        String widthHexString = Integer
+//                .toHexString(bmpWidth % 8 == 0 ? bmpWidth / 8
+//                        : (bmpWidth / 8 + 1));
+//        if (widthHexString.length() > 10) {
+//            Log.e("decodeBitmap error", " width is too large");
+//            return null;
+//        } else if (widthHexString.length() == 1) {
+//            widthHexString = "0" + widthHexString;
+//        }
+//        widthHexString = widthHexString + "00";
+//
+//        String heightHexString = Integer.toHexString(bmpHeight);
+//        if (heightHexString.length() > 10) {
+//            Log.e("decodeBitmap error", " height is too large");
+//            return null;
+//        } else if (heightHexString.length() == 1) {
+//            heightHexString = "0" + heightHexString;
+//        }
+//        heightHexString = heightHexString + "00";
+//
+//        List<String> commandList = new ArrayList<String>();
+//        commandList.add(commandHexString + widthHexString + heightHexString);
+//        commandList.addAll(bmpHexList);
+
+        // construct xL and xH
+        // there are 8 pixels per byte. In case of modulo: add 1 to compensate.
+        bmpWidth = bmpWidth % 8 == 0 ? bmpWidth / 8 : (bmpWidth / 8 + 1);
+        int xL = bmpWidth % 256;
+        int xH = (bmpWidth - xL) / 256;
+
+        String xLHex = Integer.toHexString(xL);
+        String xHHex = Integer.toHexString(xH);
+        if (xLHex.length() == 1) {
+            xLHex = "0" + xLHex;
         }
-        heightHexString = heightHexString + "00";
+        if (xHHex.length() == 1) {
+            xHHex = "0" + xHHex;
+        }
+        String widthHexString = xLHex + xHHex;
+
+        // construct yL and yH
+        int yL = bmpHeight % 256;
+        int yH = (bmpHeight - yL) / 256;
+
+        String yLHex = Integer.toHexString(yL);
+        String yHHex = Integer.toHexString(yH);
+        if (yLHex.length() == 1) {
+            yLHex = "0" + yLHex;
+        }
+        if (yHHex.length() == 1) {
+            yHHex = "0" + yHHex;
+        }
+        String heightHexString = yLHex + yHHex;
 
         List<String> commandList = new ArrayList<String>();
         commandList.add(commandHexString + widthHexString + heightHexString);
