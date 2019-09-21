@@ -39,11 +39,9 @@ public class BitmapConverter extends CordovaPlugin {
 
     private void convertImage(CallbackContext callbackContext, String path) {
         try {
-            Log.d(LOG_TAG, "Convert image: " + path);
             Bitmap bitmap = BitmapFactory.decodeFile(path);
             callbackContext.success(toBase64(Utils.decodeBitmap(bitmap)));
             bitmap.recycle();
-            Log.d(LOG_TAG, "Convert image success");
         } catch (Exception e) {
             e.printStackTrace();
             callbackContext.error(e.getMessage());
@@ -52,13 +50,11 @@ public class BitmapConverter extends CordovaPlugin {
 
     private void convertImageBase64(CallbackContext callbackContext, String base64) {
         try {
-            Log.d(LOG_TAG, "Start convert base64 image");
             final String pureBase64Encoded = base64.substring(base64.indexOf(",") + 1);
             final byte[] decodedBytes = Base64.decode(pureBase64Encoded, Base64.DEFAULT);
             Bitmap bitmap = BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
             callbackContext.success(toBase64(Utils.decodeBitmap(bitmap)));
             bitmap.recycle();
-            Log.d(LOG_TAG, "Convert base64 image success");
         } catch (Exception e) {
             e.printStackTrace();
             callbackContext.error(e.getMessage());
