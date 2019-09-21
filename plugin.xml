@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        id="cordova-plugin-bitmap-converter"
+        version="0.0.1">
+
+   <name>BitmapConverter</name>
+   <description>Cordova plugin to convert bitmap to byte array</description>
+
+   <!-- cordova -->
+   <engines>
+      <engine name="cordova" version=">=3.0.0" />
+   </engines>
+
+   <js-module src="www/BitmapConverter.js" name="BitmapConverter">
+      <clobbers target="BitmapConverter" />
+   </js-module>
+
+   <!-- android -->
+   <platform name="android">
+      <config-file target="res/xml/config.xml" parent="/*">
+         <feature name="BitmapConverter">
+            <param name="android-package" value="hit.com.cordova.bitmap.converter.BitmapConverter"/>
+         </feature>
+      </config-file>
+      <source-file src="src/android/BitmapConverter.java" target-dir="src/hit/com/cordova/bitmap/converter" />
+      <source-file src="src/android/Utils.java" target-dir="src/hit/com/cordova/bitmap/converter" />
+   </platform>
+</plugin>

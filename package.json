@@ -1,0 +1,19 @@
+{
+  "name": "cordova-plugin-bitmap-converter",
+  "description": "Cordova plugin to convert bitmap to byte array",
+  "version": "0.0.1",
+  "cordova": {
+    "id": "cordova-plugin-bitmap-converter",
+    "platforms": [
+      "android"
+    ]
+  },
+  "dependencies": {},
+  "devDependencies": {},
+  "engines": [
+    {
+      "name": "cordova",
+      "version": ">=3.0.0"
+    }
+  ]
+}
